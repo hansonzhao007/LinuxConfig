@@ -1,0 +1,5 @@
+Congratulations, Shadowsocks-python server install completed!
+Your Server IP        :  8.9.11.150
+Your Server Port      :  17851
+Your Password         :  Zxsh3017568
+Your Encryption Method:  aes-256-cfb
