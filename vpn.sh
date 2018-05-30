@@ -15,4 +15,6 @@ ssh -2fqnNT -D 9999 hanson@141.217.24.182
 
 # ==================
 #  2. 在 firefox 里面设置 proxy 
+#  Manual proxy configuration:
+#  SOCKS Host: localhost       Port:9999
 # ==================
