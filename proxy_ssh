@@ -1,0 +1,73 @@
+# ======================== 1. ProxyCommand with -W ==============================
+# 该方法需要在 Jump host 和 Target server 上的.ssh目录中的 authorized_keys，
+# 都添加 SSH client 的public key 才可以
+#
+# 然后对 SSH client 的 .ssh/config 文件进行如下两个配置。
+# -----------------------------------------------------------------
+#  1. proxy server configuration 
+# -----------------------------------------------------------------
+Host jump_host 
+  hostname 129.107.35.245
+  user hanson
+
+# -----------------------------------------------------------------
+#  2. Set Jump host proxy
+#  
+#  uhead should have an ip mapping in
+#  hosts file.
+#  For example:
+#  /etc/hosts:
+#  192.168.1.111 u30
+#
+#  -q: quiet mode. surpass the warning and diagnostic messages
+#  
+#  ─ One layer of encryption
+#  ═ Two layers of encryption
+#   ┏━━━━━━━━━━━━━━┓          ┏━━━━━━━━━━━━━┓          ┏━━━━━━━━━━━━━━━━━┓         
+#   ┃  SSH client  ┃══════════┃  Jump host  ┃──────────┃  Target server  ┃
+#   ┗━━━━━━━━━━━━━━┛          ┗━━━━━━━━━━━━━┛          ┗━━━━━━━━━━━━━━━━━┛
+#    local machine        WAN IP:129.107.35.245       LAN IP:10.0.0.30
+#
+#  ProxyCommand ssh -W %h:%p ssh_jump_host
+#   
+#  Where ssh_jump_host is the SSH server you want to make the connection for you.
+#  This is most often used when you have a network with only 1 externally
+#  available SSH server, but with many SSH servers on the inside
+#
+#  Note:
+#  The Jump_host and Target_server should both have the public key of the SSH_client,
+#  which means we need to add public key into the authorized_keys in the two machines.
+# -----------------------------------------------------------------
+Host uhead
+Host u??
+  ProxyCommand ssh -q -W %h:%p uhead
+  user hanson
+# 之后直接 ssh u30 就可以登录到 Target server 了。
+
+
+# ============================ 2. ssh port forwarding  ==========================
+# 该方法需要在 Jump host 上运行下面的 ssh 命令，然后 SSH client 在指定的端口进行
+# ssh 链接，才能访问到 Target server. 该方法并不需要添加 public key，只要用户密码
+#
+#   Local port forwarding:
+#   connections from the SSH client are forwarded via the SSH server, 
+#   then to a destination server
+#   
+#   ref: https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding
+#   ┏━━━━━━━━━━━━━━┓          ┏━━━━━━━━━━━━━┓          ┏━━━━━━━━━━━━━━━━━┓
+#   ┃  SSH client  ┃══════════┃  Jump host  ┃──────────┃  Target server  ┃
+#   ┗━━━━━━━━━━━━━━┛          ┗━━━━━━━━━━━━━┛          ┗━━━━━━━━━━━━━━━━━┛
+#    local machine     WAN IP:129.107.35.245:8888-->LAN IP:10.0.0.30:22
+# 
+# 1.run command in Jump host:
+#   ssh -2fqnNT -L 129.107.35.245:8888:10.0.0.30:22 <Hostname of Jump host>
+#   
+#   Then we can see a port forwarding thread:
+#   [hanson@uhead ~]$ ss -tnl
+#   LISTEN    0   128    129.107.35.245:8888     0.0.0.0:*
+#
+# 2.ssh Jump host with specified port in SSH client
+#   mac@macs-MacBook  ~  ssh xxz1499@129.107.35.245 -p 8888
+#   xxz1499@129.107.35.245's password:
+#   
+#   After login, we are in Target server.

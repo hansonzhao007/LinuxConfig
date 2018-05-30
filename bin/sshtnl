@@ -1,5 +1,22 @@
 #!/bin/bash
-# 端口转发
+# =================================================================
+# 可以用于内网 server 的 ssh 链接建立
+# sshtnl uhead "129.107.35.245:8111":"u30:22"
+# 这里 uhead 是有外网 ip 129.107.35.245 的服务器，内网 server
+# u30 没有外网 ip，从外部访问该内网服务器 u30，通过 uhead 的8112端口转发，ssh 链接到 u30
+# $ ss -tnl
+# State     Recv-Q     Send-Q           Local Address:Port          Peer Address:Port
+# LISTEN    0          128             129.107.35.245:8112               0.0.0.0:*
+# 可以看到端口 8112 已经有了映射
+# 
+# -f      Requests ssh to go to background just before command execution.
+# -q      Quiet mode.  Causes most warning and diagnostic messages to be suppressed.
+# -n      Redirects stdin from /dev/null (actually, prevents reading from stdin).  
+#         This must be used when ssh is run in the background.
+# -N      Do not execute a remote command.  This is useful for just forwarding ports.
+# -T      Disable pseudo-terminal allocation
+# -2      Forces ssh to try protocol version 2 only.
+# =================================================================
 if [ $# -ne 3 ]; then
   echo "Access to <[r-host:]r-port> on remote machine will be forwarded to <t-host:t-port> in local network"
   echo "  Usage: sshtnr <[username@]remote-host> <[r-host:]r-port> <t-host:t-port>"
@@ -8,4 +25,4 @@ fi
 shost="$1"
 rhost="$2"
 thost="$3"
-ssh -2fqnNT -R "${rhost}":"${thost}" "${shost}"
+ssh -2fqnNT -L "${rhost}":"${thost}" "${shost}"
