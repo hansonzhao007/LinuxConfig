@@ -99,55 +99,83 @@ ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name end
 
 
 s() { # search file contain specific content
+    if [[ $# -eq 0 ]]; then
+        echo "  Usage: s <pattern> [path] ..."
+    fi
+
     # search content recursively from path $2
     if [ "$#" -eq 2 ]; then
-    grep -rnIi "$1" "$2"
+        grep -rnIi "$1" "$2"
     fi
     # search content recursively from current folder
     if [ "$#" -eq 1 ]; then
-    grep -rnIi "$1" ./
-fi
+        grep -rnIi "$1" ./
+    fi
 }
 
 sw() {# search files that match the whole word
+    if [[ $# -eq 0 ]]; then
+        echo "  Usage: sw pattern [path] ..."
+    fi
+
     # search content recursively from path $2
     if [ "$#" -eq 2 ]; then
-    grep -rnIiw "$1" "$2"
+        grep -rnIiw "$1" "$2"
     fi
     # search content recursively from current folder
     if [ "$#" -eq 1 ]; then
-    grep -rnIiw "$1" ./
-fi
+        grep -rnIiw "$1" ./
+    fi
 }
 
 si() {# search content in given files $2 
-    echo "$2";
+    if [[ $# -eq 0 ]]; then
+        echo "  Usage: si pattern [filetype] ..."
+    fi
+
     # search content recursively from current path
     if [ "$#" -eq 2 ]; then
-    grep --include="$2"  -rnIi ./ -e "$1"
-fi
+        grep --include="$2"  -rnIi ./ -e "$1"
+    fi
+
+}
+
+sif() {# search content in given files $2 
+    if [[ $# -eq 0 ]]; then
+        echo "  Usage: sif pattern [filetype] ..."
+    fi
+
+    # search content recursively from current path
+    if [ "$#" -eq 2 ]; then
+        grep --include="$2"  -rnIil ./ -e "$1"
+    fi
 
 }
 
 sf() {# search file contain specific content, only display the file name
+    if [[ $# -eq 0 ]]; then
+        echo "  Search files whose filename contain <pattern> "
+        echo "  Usage: sf pattern [file path] ..."
+    fi
+
     # search content recursively from path $2
     if [ "$#" -eq 2 ]; then
-    grep -rnIil "$1" "$2"
+        grep -rnIil "$1" "$2"
     fi
     # search content recursively from current folder
     if [ "$#" -eq 1 ]; then
-    grep -rnIil "$1" ./
+        grep -rnIil "$1" ./
     fi
 }
 
 sfw() {# search files whose content contains the given  word, only display the file name
     # search content recursively from path $2
     if [ "$#" -eq 2 ]; then
-    grep -rnIilw "$1" "$2"
+        grep -rnIilw "$1" "$2"
     fi
     # search content recursively from current folder
     if [ "$#" -eq 1 ]; then
-    grep -rnIilw "$1" ./
+        grep -rnIilw "$1" ./
     fi
 }
 
@@ -241,3 +269,10 @@ alias mountReadWrite='/sbin/mount -uw /'    # mountReadWrite:   For use when boo
 #    screensaverDesktop: Run a screensaver on the Desktop
 #   -----------------------------------------------------------------------------------
     alias screensaverDesktop='/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -background'
+
+
+#   ---------------------------------------
+#   8. Debug
+#   ---------------------------------------
+
+ulimit -c unlimited
