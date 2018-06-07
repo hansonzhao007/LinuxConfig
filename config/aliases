@@ -113,7 +113,7 @@ s() { # search file contain specific content
     fi
 }
 
-sw() {# search files that match the whole word
+sw() { # search files that match the whole word
     if [[ $# -eq 0 ]]; then
         echo "  Usage: sw pattern [path] ..."
     fi
@@ -128,7 +128,7 @@ sw() {# search files that match the whole word
     fi
 }
 
-si() {# search content in given files $2 
+si() { # search content in given files $2 
     if [[ $# -eq 0 ]]; then
         echo "  Usage: si pattern [filetype] ..."
     fi
@@ -140,7 +140,7 @@ si() {# search content in given files $2
 
 }
 
-sif() {# search content in given files $2 
+sif() { # search content in given files $2 
     if [[ $# -eq 0 ]]; then
         echo "  Usage: sif pattern [filetype] ..."
     fi
@@ -152,7 +152,7 @@ sif() {# search content in given files $2
 
 }
 
-sf() {# search file contain specific content, only display the file name
+sf() { # search file contain specific content, only display the file name
     if [[ $# -eq 0 ]]; then
         echo "  Search files whose filename contain <pattern> "
         echo "  Usage: sf pattern [file path] ..."
@@ -168,7 +168,7 @@ sf() {# search file contain specific content, only display the file name
     fi
 }
 
-sfw() {# search files whose content contains the given  word, only display the file name
+sfw() { # search files whose content contains the given  word, only display the file name
     # search content recursively from path $2
     if [ "$#" -eq 2 ]; then
         grep -rnIilw "$1" "$2"
