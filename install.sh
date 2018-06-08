@@ -41,3 +41,6 @@ vim -c ":PluginInstall" -c ":q" -c ":q"
 
 mkdir -p ${DEST}/Program/usr/bin
 rsync -rpc bin/ ${DEST}/Program/usr/bin
+
+echo “source ~/.aliases” >> ~/.bashrc
+source ~/.bashrc
