@@ -43,6 +43,7 @@ mkdir -p ${DEST}/Program/usr/bin
 rsync -rpc bin/ ${DEST}/Program/usr/bin
 
 echo "source .aliases " >> ~/.bashrc
+echo "export BASH_IT_THEME='nwinkler'" >> ~/.bashrc
 source ~/.bashrc
 
 
