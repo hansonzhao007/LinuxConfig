@@ -47,6 +47,6 @@ rsync -rpc bin/ ${DEST}/Program/usr/bin
 git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 ~/.bash_it/install.sh
 
-echo "source .aliases " >> ~/.bashrc
+echo "source ~/.aliases " >> ~/.bashrc
 echo "export BASH_IT_THEME='nwinkler'" >> ~/.bashrc
 source ~/.bashrc
