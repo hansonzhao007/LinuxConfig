@@ -42,7 +42,6 @@ fi
 #   -----------------------------
 alias lt='ls -ltrhF'
 alias l='ls -CF'alias tree='tree -C'
-alias grep='grep --color=auto'
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation

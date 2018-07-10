@@ -44,8 +44,8 @@ rsync -rpc bin/ ${DEST}/Program/usr/bin
 
 
 # Install bash-it
-# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-git clone --depth=1 https://github.com/hansonzhao007/bash-it.git ~/.bash_it
+git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+# git clone --depth=1 https://github.com/hansonzhao007/bash-it.git ~/.bash_it
 ~/.bash_it/install.sh
 
 echo "source ~/.aliases " >> ~/.bashrc

@@ -1,0 +1,33 @@
+# test
+Host fbhead
+  hostname 141.217.24.182
+  user hanson
+Host uhead
+  hostname 129.107.35.245
+  user hanson
+Host npi
+  hostname 129.107.116.115
+  user pi
+Host pi
+  hostname 129.107.116.115
+  user pi  
+  ProxyCommand ssh -q -W %h:%p uhead
+Host p??
+  ProxyCommand ssh -q -W %h:%p fbhead
+  user hanson
+Host u??
+  ProxyCommand ssh -q -W %h:%p uhead
+  user hanson
+Host nu30
+# 从内网跳到 pi:8000 端口，pi 那边8000端口转发到 uhead:8080 端口，uhead:8080 端口再转发到 u30:22 端口
+  hostname 129.107.117.222
+  user hanson
+  port 8000
+Host nuhead
+  hostname 129.107.117.222 
+  user hanson
+  port 8080
+
+Host vpn
+  hostname 8.9.11.150 
+  user root
