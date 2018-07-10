@@ -50,3 +50,6 @@ git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 
 echo "source ~/.aliases " >> ~/.bashrc
 source ~/.bashrc
+
+# install gef https://github.com/hugsy/gef
+wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
