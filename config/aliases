@@ -41,7 +41,6 @@ fi
 #   2. MAKE TERMINAL BETTER
 #   -----------------------------
 alias lt='ls -ltrhF'
-alias l='ls -CF'alias tree='tree -C'
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
