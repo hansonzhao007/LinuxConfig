@@ -294,4 +294,58 @@ alias mountReadWrite='/sbin/mount -uw /'    # mountReadWrite:   For use when boo
 #   8. Debug
 #   ---------------------------------------
 
-ulimit -c unlimited
+#   ulimit -c unlimited
+
+#   ---------------------------------------
+#   9. Export user's local software path
+#   ---------------------------------------
+
+# exports {{{
+if [[ -z $BASHRC_LOADED ]]; then
+
+prog=${HOME}/program
+if [[ -d "${prog}" ]]; then
+  if [[ -f "${prog}/.wl" ]]; then
+    wl=$(cat "${prog}/.wl")
+  else
+    wl=$(ls ${prog})
+  fi # white-list
+
+  for home in ${wl}; do
+    ph=${prog}/${home}
+    if [[ -d "${ph}" ]]; then
+      for bd in bin sbin; do
+        if [[ -d "${ph}/${bd}" ]]; then
+          if [[ -z ${PATH} ]]; then
+            PATH=${ph}/${bd}
+          else
+            PATH=${ph}/${bd}:${PATH}
+          fi
+        fi
+      done
+      for ld in lib lib64; do
+        if [[ -d "${ph}/${ld}" ]]; then
+          if [[ -z ${LD_LIBRARY_PATH} ]]; then
+            LD_LIBRARY_PATH=${ph}/${ld}
+          else
+            LD_LIBRARY_PATH=${ph}/${ld}:${LD_LIBRARY_PATH}
+          fi
+        fi
+      done
+    fi
+  done
+  export PATH
+  export LD_LIBRARY_PATH
+fi # program
+
+[[ -f ~/.bashrc.local1 ]] && . ~/.bashrc.local1
+
+export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+export HISTIGNORE='&'
+export EDITOR='vim'
+
+export BASHRC_LOADED=y
+fi # BASHRC_LOADED
+# }}}

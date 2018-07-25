@@ -39,8 +39,8 @@ done
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim -c ":PluginInstall" -c ":q" -c ":q"
 
-mkdir -p ${DEST}/Program/usr/bin
-rsync -rpc bin/ ${DEST}/Program/usr/bin
+mkdir -p ${DEST}/program/usr/bin
+rsync -rpc bin/ ${DEST}/program/usr/bin
 
 
 # Install bash-it
