@@ -30,6 +30,13 @@ fi
 DEST=${1:-${HOME}}
 echo "[DEST=${DEST}]"
 
+# copy my scripts
+mkdir -p ${DEST}/program/usr/bin
+rsync -rpc bin/ ${DEST}/program/usr/bin
+
+# copy my lib
+mkdir -p ${DEST}/program/usr/lib 
+
 # .aliases, .vimrc ...
 for cf in $(cat ./config.list); do
     put "config/$cf" "${DEST}/.$cf"
@@ -39,8 +46,6 @@ done
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim -c ":PluginInstall" -c ":q" -c ":q"
 
-mkdir -p ${DEST}/program/usr/bin
-rsync -rpc bin/ ${DEST}/program/usr/bin
 
 
 # Install bash-it
