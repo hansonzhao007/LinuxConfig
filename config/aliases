@@ -235,7 +235,7 @@ sfw() { # search files whose content contains the given  word, only display the 
 #   my_ps: List processes owned by my user:
 #   ------------------------------------------------------------
     my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
-
+    alias myps=my_ps
 #   ---------------------------
 #   6. NETWORKING
 #   ---------------------------
