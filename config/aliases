@@ -64,6 +64,12 @@ trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the 
 ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
 alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
 
+
+#   rme1: remove all files except one
+    rme1() {
+	find . -type f -not -name $1 -delete
+    }
+
 #   lr:  Full Recursive Directory Listing
 #   ------------------------------------------
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
@@ -173,7 +179,7 @@ sif() { # search content in given files $2
 
 sf() { # search file contain specific content, only display the file name
     if [[ $# -eq 0 ]]; then
-        echo "  Search files whose filename contain <pattern> "
+        echo "  search file contain specific content, only display the file name "
         echo "  Usage: sf pattern [file path] ..."
     fi
 
