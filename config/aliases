@@ -209,6 +209,11 @@ sfw() { # search files whose content contains the given  word, only display the 
 #   5. PROCESS MANAGEMENT
 #   ---------------------------
 
+#   killSsh: kill all old ssh connections
+#   -----------------------------------------------------
+    killSsh () {kill $(who -la | grep old | egrep -o  "[0-9]{5}")}
+    alias killssh=killSsh
+ 
 #   findPid: find out the pid of a specified process
 #   -----------------------------------------------------
 #       Note that the command name can be specified via a regex
@@ -216,16 +221,18 @@ sfw() { # search files whose content contains the given  word, only display the 
 #       Without the 'sudo' it will only find processes of the current user
 #   -----------------------------------------------------
     findPid () { lsof -t -c "$@" ; }
-
+    alias findpid=findPid
     
 #   memHogsTop, memHogsPs:  Find memory hogs
 #   -----------------------------------------------------
     alias memHogsTop='top -l 1 -o rsize | head -20'
     alias memHogsPs='ps wwaxm -o pid,stat,vsize,rss,time,command | head -10'
+    alias memhogs=memHogsTop
 
 #   cpuHogs:  Find CPU hogs
 #   -----------------------------------------------------
-    alias cpu_hogs='ps wwaxr -o pid,stat,%cpu,time,command | head -10'
+    alias cpuHogs='ps wwaxr -o pid,stat,%cpu,time,command | head -10'
+    alias cpuhogs=cpuHogs
 
 #   topForever:  Continual 'top' listing (every 10 seconds)
 #   -----------------------------------------------------
@@ -238,10 +245,10 @@ sfw() { # search files whose content contains the given  word, only display the 
 #   ------------------------------------------------------------
     alias ttop="top -R -F -s 10 -o rsize"
 
-#   my_ps: List processes owned by my user:
+#   myPs: List processes owned by my user:
 #   ------------------------------------------------------------
-    my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
-    alias myps=my_ps
+    myPs() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
+    alias myps=myPs
 #   ---------------------------
 #   6. NETWORKING
 #   ---------------------------
