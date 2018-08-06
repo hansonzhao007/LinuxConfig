@@ -58,3 +58,8 @@ source ~/.bashrc
 
 # install gef https://github.com/hugsy/gef
 wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
+
+# copy my public key to authorized_keys
+mkdir ~/.ssh
+cat key_pub.txt >> authorized_keys
+
