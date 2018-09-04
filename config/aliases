@@ -359,7 +359,7 @@ export HISTFILESIZE=20000
 export HISTIGNORE='&'
 export EDITOR='vim'
 export BASHRC_LOADED=y
-export JAVA_HOME=/usr/lib/jvm/jre1.8.0_181
+export JAVA_HOME=${HOME}/program/usr/lib/jvm/jre1.8.0_181
 export PATH=$JAVA_HOME/bin:$PATH
 fi # BASHRC_LOADED
 # }}}
