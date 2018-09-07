@@ -25,41 +25,61 @@ else
     echo "Mac"
 fi
 
-# normal .xx files
-#echo "install all config files into your HOME."
-DEST=${1:-${HOME}}
-echo "[DEST=${DEST}]"
+#   -------------------------------
+#   1. ENVIRONMENT for Both
+#   -------------------------------
+    DEST=${1:-${HOME}}
+    echo "[DEST=${DEST}]"
 
-# copy my scripts
-mkdir -p ${DEST}/program/usr/bin
-rsync -rpc bin/ ${DEST}/program/usr/bin
-
-# copy my lib
-mkdir -p ${DEST}/program/usr/lib 
-
-# .aliases, .vimrc ...
-for cf in $(cat ./config.list); do
+    # .aliases, .vimrc ...
+    for cf in $(cat ./config.list); do
     put "config/$cf" "${DEST}/.$cf"
-done
+    done
 
-# install vim plugin 
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim -c ":PluginInstall" -c ":q" -c ":q"
+    # install vim plugin
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim -c ":PluginInstall" -c ":q" -c ":q"
+
+    # install gef https://github.com/hugsy/gef
+    wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
+
+    # generate ecdsa key
+    ssh-keygen -t ecdsa -b 521 -N "" -f id_ecdsa
+
+    # copy my public key to authorized_keys
+    mkdir ~/.ssh
+    cat key_pub.txt >> authorized_keys
+    # allow local ssh
+    cat id_ecdas.pub >> authorized_keys
 
 
 
-# Install bash-it
-# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-git clone --depth=1 https://github.com/hansonzhao007/bash-it.git ~/.bash_it
-~/.bash_it/install.sh
+#   -------------------------------
+#   2. ENVIRONMENT for Linux
+#   -------------------------------
+    if [ $MAC -eq 0 ]; then
+    # copy my scripts
+    mkdir -p ${DEST}/program/usr/bin
+    rsync -rpc bin/ ${DEST}/program/usr/bin
 
-echo "source ~/.aliases " >> ~/.bashrc
-source ~/.bashrc
+    # copy my lib
+    mkdir -p ${DEST}/program/usr/lib
 
-# install gef https://github.com/hugsy/gef
-wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
+    # Install bash-it
+    # git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+    git clone --depth=1 https://github.com/hansonzhao007/bash-it.git ~/.bash_it
+    ~/.bash_it/install.sh
 
-# copy my public key to authorized_keys
-mkdir ~/.ssh
-cat key_pub.txt >> authorized_keys
+    fi
+
+
+#   -------------------------------
+#   3. Final Setup
+#   -------------------------------
+    echo "source ~/.aliases " >> ~/.bashrc
+    echo "source ~/.installed_package" >> ~/.bashrc
+    source ~/.bashrc
+
+
+
 

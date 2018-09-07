@@ -3,3 +3,5 @@
 #
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
+
+[[ -f ~/.installed_package ]] && . ~/.installed_package
