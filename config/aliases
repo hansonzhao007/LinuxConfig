@@ -211,7 +211,7 @@ sfw() { # search files whose content contains the given  word, only display the 
 
 #   killSsh: kill all old ssh connections
 #   -----------------------------------------------------
-    killSsh () { kill $(who -la | grep old | egrep -o  "[0-9]{5}"); }
+    killSsh () { kill $(who -la | grep old | grep -o '\bold *[0-9]*' | grep -o '[0-9]*'); }
     alias killssh=killSsh
  
 #   findPid: find out the pid of a specified process
