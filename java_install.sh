@@ -10,7 +10,7 @@ tar zxvf ~/program/usr/lib/jvm/jdk.tar.gz -C ~/program/usr/lib/jvm/java --strip-
 rm ~/program/usr/lib/jvm/jdk.tar.gz
 
 echo "export JAVA_HOME=${HOME}/program/usr/lib/jvm/java" >> ~/.installed_package
-echo "export PATH=${JAVA_HOME}/bin:$PATH" >> ~/.installed_package
+echo "export PATH=${HOME}/program/usr/lib/jvm/java/bin:$PATH" >> ~/.installed_package
 
 source ~/.installed_package
 
