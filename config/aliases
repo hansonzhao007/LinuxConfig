@@ -274,7 +274,8 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
         echo -e "\n${RED}Machine stats :$NC " ; uptime
         echo -e "\n${RED}Current network location :$NC " ; scselect
         echo -e "\n${RED}Public facing IP Address :$NC " ;myip
-        #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
+        echo -e "\n${RED}Gateway :$NC " ; ip route | grep default
+        echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
         echo
     }
 
