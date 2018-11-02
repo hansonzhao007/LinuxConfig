@@ -59,7 +59,7 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " 开启实时搜索功能
 set incsearch
-set timeout timeoutlen=100 ttimeoutlen=100
+set timeout timeoutlen=500 ttimeoutlen=0
 " 搜索时大小写不敏感
 set ignorecase
 
@@ -413,6 +413,9 @@ let g:ycm_collect_identifiers_from_tags_files=0
 "" 引入 C++ 标准库 tags
 "set tags+=/data/misc/software/app/vim/stdcpp.tags
 "set tags+=/data/misc/software/app/vim/sys.tags
+
+" search ctags file until home directory
+set tags=./tags,tags;$HOME 
 
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
 inoremap <leader>; <C-x><C-o>
