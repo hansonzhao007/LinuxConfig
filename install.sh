@@ -48,9 +48,9 @@ fi
 
     # copy my public key to authorized_keys
     mkdir ~/.ssh
-    cat key_pub.txt >> authorized_keys
+    cat key_pub.txt >> ~/.ssh/authorized_keys
     # allow local ssh
-    cat id_ecdas.pub >> authorized_keys
+    cat id_ecdas.pub >> ~/.ssh/authorized_keys
 
 
 
