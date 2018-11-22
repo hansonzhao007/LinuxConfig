@@ -340,9 +340,9 @@ if [[ -d "${prog}" ]]; then
       for ld in lib lib64; do
         if [[ -d "${ph}/${ld}" ]]; then
           if [[ -z ${LD_LIBRARY_PATH} ]]; then
-            LD_LIBRARY_PATH=${ph}/${ld}
+            LD_LIBRARY_PATH=/usr/local/lib/:${ph}/${ld}
           else
-            LD_LIBRARY_PATH=${ph}/${ld}:${LD_LIBRARY_PATH}
+            LD_LIBRARY_PATH=/usr/local/lib/:${ph}/${ld}:${LD_LIBRARY_PATH}
           fi
         fi
       done
