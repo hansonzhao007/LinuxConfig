@@ -117,8 +117,8 @@ alias numFiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden 
 #   ---------------------------
 
 alias qfind="find . -name "                 # qfind:    Quickly search for file
-f() { /usr/bin/find . -name '*'"$@"'*' ; }  # f:        find files whose filename contains some string
-ff () { /usr/bin/find . -name '*'"$@"'*' ; }# ff:       Find file under the current directory
+f() { find . -name "$1" -print; }           # f:        find files whose filename contains some string
+ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
 ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
 ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
 
@@ -362,3 +362,4 @@ export EDITOR='vim'
 export BASHRC_LOADED=y
 fi # BASHRC_LOADED
 # }}}
+
