@@ -121,7 +121,7 @@ f() { find . -name "$1" -print; }           # f:        find files whose filenam
 ff () { /usr/bin/find . -name '*'"$@"'*' ; }      # ff:       Find file under the current directory
 ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
 ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
-
+ducks () { du -cks * | sort -rn | head ; } # list largest folder
 
 s() { # search file contain specific content
     if [[ $# -eq 0 ]]; then
