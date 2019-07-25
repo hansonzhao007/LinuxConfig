@@ -117,10 +117,36 @@ alias numFiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden 
 #   ---------------------------
 
 alias qfind="find . -name "                 # qfind:    Quickly search for file
-f() { find . -name "$1" -print; }           # f:        find files whose filename contains some string
-ff () { /usr/bin/find . -name '*'"$@"'*' ; }      # ff:       Find file under the current directory
-ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
-ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
+f() {                                       # f:        Find file under the current directory
+  if [[ $# -eq 0 ]]; then
+        echo "  Usage: f filename ... Find file under the current directory"
+        return
+  fi
+
+  find . -name "$1" -print; 
+}           
+ff () {                                     # ff:       Find files whose filename contains some string
+  if [[ $# -eq 0 ]]; then
+        echo "  Usage: ff filename ... Find files whose filename contains some string"
+        return
+  fi
+  /usr/bin/find . -name '*'"$@"'*' ; 
+}      
+ffs () {                                    # ffs:      Find file whose name starts with a given string
+  if [[ $# -eq 0 ]]; then
+        echo "  Usage: ff filename ... Find file whose name starts with a given string"
+        return
+  fi
+  /usr/bin/find . -name "$@"'*' ; 
+}  
+ffe () {                                    # ffe:      Find file whose name ends with a given string
+  if [[ $# -eq 0 ]]; then
+        echo "  Usage: ff filename ... Find file whose name ends with a given string"
+        return
+  fi
+  /usr/bin/find . -name '*'"$@" ; 
+}  
+
 ducks () { du -cksh * | sort -rn | head ; } # list largest folder
 
 s() { # search file contain specific content
