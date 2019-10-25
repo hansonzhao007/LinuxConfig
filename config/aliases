@@ -149,6 +149,7 @@ ffe () {                                    # ffe:      Find file whose name end
 
 ducks () { du -cksh * | sort -rn | head ; } # list largest folder
 
+
 s() { # search file contain specific content
     if [[ $# -eq 0 ]]; then
         echo "  Usage: s <pattern> [path] ..."
@@ -179,9 +180,10 @@ sw() { # search files that match the whole word
     fi
 }
 
-si() { # search content in given files $2 
+si() { # search files with given suffix that match the pattern
     if [[ $# -eq 0 ]]; then
-        echo "  Usage: si pattern [filetype] ..."
+         echo "  Note : search files with given suffix that match the word"
+        echo "  Usage: si pattern filetype-suffix ..."
     fi
 
     # search content recursively from current path
@@ -190,6 +192,20 @@ si() { # search content in given files $2
     fi
 
 }
+
+swi() { # search files with given suffix that match the whole word
+    if [[ $# -eq 0 ]]; then
+        echo "  Note : search files with given suffix that match the whole word"
+        echo "  Usage: swi pattern filetype-suffix ..."
+    fi
+
+    # search content recursively from current path
+    if [ "$#" -eq 2 ]; then
+        grep --include="*$2*"  -rnIiw ./ -e "$1"
+    fi
+
+}
+
 
 sif() { # search content in given files $2 
     if [[ $# -eq 0 ]]; then
