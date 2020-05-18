@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [[ $# -eq 0 ]]; then
   echo "  Usage: perfsvg <filename> ..."
   exit 0
@@ -23,4 +23,4 @@ perf script -i "${1}" > ${pref}.perf
 perl -w "${st1}" ${pref}.perf > ${pref}.folded
 perl -w "${st2}" ${pref}.folded > fperf-${rid}.svg
 rm -f ${pref}.perf ${pref}.folded
-echo "fperf-${rid}.svg
+echo "fperf-${rid}.svg"
