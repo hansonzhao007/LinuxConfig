@@ -147,6 +147,10 @@ ffe () {                                    # ffe:      Find file whose name end
   /usr/bin/find . -name '*'"$@" ; 
 }  
 
+ccache() {
+    sudo sh -c 'echo 3 >/proc/sys/vm/drop_caches';
+}
+
 ducks () { du -cksh * | sort -rn | head ; } # list largest folder
 
 
