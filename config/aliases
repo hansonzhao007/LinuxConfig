@@ -250,6 +250,9 @@ sfw() { # search files whose content contains the given  word, only display the 
     fi
 }
 
+loc() { # line of codes in current directory
+    find . -name "*" | xargs wc -l
+}
 
 #   ---------------------------
 #   5. PROCESS MANAGEMENT
