@@ -117,6 +117,7 @@ alias numFiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden 
 #   ---------------------------
 
 alias qfind="find . -name "                 # qfind:    Quickly search for file
+
 f() {                                       # f:        Find file under the current directory
   if [[ $# -eq 0 ]]; then
         echo "  Usage: f filename ... Find file under the current directory"
@@ -124,7 +125,8 @@ f() {                                       # f:        Find file under the curr
   fi
 
   find . -name "$1" -print; 
-}           
+}   
+
 ff () {                                     # ff:       Find files whose filename contains some string
   if [[ $# -eq 0 ]]; then
         echo "  Usage: ff filename ... Find files whose filename contains some string"
@@ -132,6 +134,7 @@ ff () {                                     # ff:       Find files whose filenam
   fi
   /usr/bin/find . -name '*'"$@"'*' ; 
 }      
+
 ffs () {                                    # ffs:      Find file whose name starts with a given string
   if [[ $# -eq 0 ]]; then
         echo "  Usage: ff filename ... Find file whose name starts with a given string"
@@ -139,6 +142,7 @@ ffs () {                                    # ffs:      Find file whose name sta
   fi
   /usr/bin/find . -name "$@"'*' ; 
 }  
+
 ffe () {                                    # ffe:      Find file whose name ends with a given string
   if [[ $# -eq 0 ]]; then
         echo "  Usage: ff filename ... Find file whose name ends with a given string"
@@ -153,98 +157,93 @@ ccache() {
 
 ducks () { du -cksh * | sort -rn | head ; } # list largest folder
 
-
-s() { # search file contain specific content
+s() {
     if [[ $# -eq 0 ]]; then
-        echo "  Usage: s <pattern> [path] ..."
+    	echo "  Note : search files which contain the given pattern"
+        echo "  Usage: s <pattern> [path]"
     fi
 
-    # search content recursively from path $2
+    # search pattern recursively from path $2
     if [ "$#" -eq 2 ]; then
         grep --color=always -rnIi "$1" "$2" | sed 's/:/ :/2'
     fi
-    # search content recursively from current folder
+    
+    # search pattern recursively from current folder
     if [ "$#" -eq 1 ]; then
         grep --color=always -rnIi "$1" ./ | sed 's/:/ :/2'
     fi
 }
 
-sw() { # search files that match the whole word
+sw() {
     if [[ $# -eq 0 ]]; then
-        echo "  Usage: sw pattern [path] ..."
+    	echo "  Note : search files which contain the given pattern(whole word)"
+        echo "  Usage: sw <pattern> [path]"
     fi
 
-    # search content recursively from path $2
+    # search pattern recursively from path $2
     if [ "$#" -eq 2 ]; then
         grep --color=always -rnIiw "$1" "$2" | sed 's/:/ :/2'
     fi
-    # search content recursively from current folder
+    
+    # search pattern recursively from current folder
     if [ "$#" -eq 1 ]; then
         grep --color=always -rnIiw "$1" ./ | sed 's/:/ :/2'
     fi
 }
 
-si() { # search files with given suffix that match the pattern
+si() {
     if [[ $# -eq 0 ]]; then
-         echo "  Note : search files with given suffix that match the word"
-        echo "  Usage: si pattern filetype-suffix ..."
+        echo "  Note : search files(give suffix) which contain the given pattern"
+        echo "  Usage: si <pattern> <filetype-suffix>"
     fi
 
-    # search content recursively from current path
+    # search pattern recursively from current path
     if [ "$#" -eq 2 ]; then
-        grep --color=always --include="$2"  -rnIi ./ -e "$1" | sed 's/:/ :/2'
+        grep --color=always --include="*$2"  -rnIi ./ -e "$1" | sed 's/:/ :/2'
+    fi
+}
+
+swi() {
+    if [[ $# -eq 0 ]]; then
+        echo "  Note : search files(give suffix) which contain the given pattern(whole word)"
+        echo "  Usage: swi <pattern> <filetype-suffix>"
+    fi
+
+    # search pattern recursively from current path
+    if [ "$#" -eq 2 ]; then
+        grep --color=always --include="*$2"  -rnIiw ./ -e "$1" | sed 's/:/ :/2'
     fi
 
 }
 
-swi() { # search files with given suffix that match the whole word
+sf() {
     if [[ $# -eq 0 ]]; then
-        echo "  Note : search files with given suffix that match the whole word"
-        echo "  Usage: swi pattern filetype-suffix ..."
+        echo "  Note : search files which contain the given pattern, only display the file names"
+        echo "  Usage: sf <pattern> [file path]"
     fi
 
-    # search content recursively from current path
-    if [ "$#" -eq 2 ]; then
-        grep --color=always --include="*$2*"  -rnIiw ./ -e "$1" | sed 's/:/ :/2'
-    fi
-
-}
-
-
-sif() { # search content in given files $2 
-    if [[ $# -eq 0 ]]; then
-        echo "  Usage: sif pattern [filetype] ..."
-    fi
-
-    # search content recursively from current path
-    if [ "$#" -eq 2 ]; then
-        grep --include="$2"  -rnIil ./ -e "$1"
-    fi
-
-}
-
-sf() { # search file contain specific content, only display the file name
-    if [[ $# -eq 0 ]]; then
-        echo "  search file contain specific content, only display the file name "
-        echo "  Usage: sf pattern [file path] ..."
-    fi
-
-    # search content recursively from path $2
+    # search pattern recursively from path $2
     if [ "$#" -eq 2 ]; then
         grep -rnIil "$1" "$2"
     fi
-    # search content recursively from current folder
+    # search pattern recursively from current folder
     if [ "$#" -eq 1 ]; then
         grep -rnIil "$1" ./
     fi
 }
 
-sfw() { # search files whose content contains the given  word, only display the file name
-    # search content recursively from path $2
+sfw() {
+    if [[ $# -eq 0 ]]; then
+        echo "  Note : search files which contain the given pattern(whole word), only display the file names"
+        echo "  Usage: sfw pattern [file path]"
+    fi
+    
+    # search pattern recursively from path $2
     if [ "$#" -eq 2 ]; then
         grep -rnIilw "$1" "$2"
     fi
-    # search content recursively from current folder
+    
+    # search pattern recursively from current folder
     if [ "$#" -eq 1 ]; then
         grep -rnIilw "$1" ./
     fi
