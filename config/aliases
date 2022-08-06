@@ -161,11 +161,11 @@ s() { # search file contain specific content
 
     # search content recursively from path $2
     if [ "$#" -eq 2 ]; then
-        grep -rnIi "$1" "$2"
+        grep --color=always -rnIi "$1" "$2" | sed 's/:/ :/2'
     fi
     # search content recursively from current folder
     if [ "$#" -eq 1 ]; then
-        grep -rnIi "$1" ./
+        grep --color=always -rnIi "$1" ./ | sed 's/:/ :/2'
     fi
 }
 
@@ -176,11 +176,11 @@ sw() { # search files that match the whole word
 
     # search content recursively from path $2
     if [ "$#" -eq 2 ]; then
-        grep -rnIiw "$1" "$2"
+        grep --color=always -rnIiw "$1" "$2" | sed 's/:/ :/2'
     fi
     # search content recursively from current folder
     if [ "$#" -eq 1 ]; then
-        grep -rnIiw "$1" ./
+        grep --color=always -rnIiw "$1" ./ | sed 's/:/ :/2'
     fi
 }
 
@@ -192,7 +192,7 @@ si() { # search files with given suffix that match the pattern
 
     # search content recursively from current path
     if [ "$#" -eq 2 ]; then
-        grep --include="$2"  -rnIi ./ -e "$1"
+        grep --color=always --include="$2"  -rnIi ./ -e "$1" | sed 's/:/ :/2'
     fi
 
 }
@@ -205,7 +205,7 @@ swi() { # search files with given suffix that match the whole word
 
     # search content recursively from current path
     if [ "$#" -eq 2 ]; then
-        grep --include="*$2*"  -rnIiw ./ -e "$1"
+        grep --color=always --include="*$2*"  -rnIiw ./ -e "$1" | sed 's/:/ :/2'
     fi
 
 }
